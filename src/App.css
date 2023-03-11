@@ -34,6 +34,11 @@ h1 {
   flex-wrap: wrap;
 }
 
+.mine h1 {
+  color: red;
+  font-size: 36px;
+}
+
 .block {
   width: 40px;
   height: 40px;
@@ -49,4 +54,15 @@ h1 {
 
 .block:active {
   filter: brightness(0.3);
+}
+
+footer {
+  position: absolute;
+  left: 50%;
+  top: 97%;
+  transform: translate(-50%, 0);
+}
+
+footer p {
+  color: aliceblue;
 }
