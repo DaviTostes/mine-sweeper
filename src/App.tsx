@@ -4,7 +4,7 @@ import "./App.css";
 function App() {
   const [lose, setLose] = useState(false)
 
-  const handleClickBomb = () => {
+   const handleClickBomb = () => {
     setLose(true)
   }
 
@@ -28,6 +28,19 @@ function App() {
           mine.children[blockBomb].addEventListener("click", handleClickBomb)
           bombs--;
         }
+      }
+
+      var matriz = []
+      for(let i=0; i<=mine.childElementCount-1; i++) {
+        if(mine.children[i].innerHTML != "<p>💣</p>") {
+          matriz.push("")
+        } else {
+          matriz.push("💣")
+        }
+      }
+
+      for(let i=0; i<matriz.length; i++) {
+        console.log(i)
       }
     }
   }, [])
