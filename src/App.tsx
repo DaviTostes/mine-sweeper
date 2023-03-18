@@ -5,6 +5,10 @@ function App() {
   const [lose, setLose] = useState(false)
 
    const handleClickBomb = () => {
+    const mine = document.querySelector('.mine')
+    for(let i=0; i<200; i++) {
+      mine.children[i].children[0].style.filter = 'opacity(1)'
+    }
     setLose(true)
   }
 
@@ -51,21 +55,47 @@ function App() {
           var countBomb = 0
           if(matriz[i][j] != '💣') {
             //colunas
-            if(j < 9 && matriz[i][j+1] === '💣') {
+            if(matriz[i][j+1] === '💣') {
               countBomb++
             }
-            if(j > 0 && matriz[i][j-1] === '💣') {
+            if(matriz[i][j-1] === '💣') {
               countBomb++
             }
             //linhas
-            if(i < 9 && matriz[i+1][j] === '💣') {
+            if(i < 19 && matriz[i+1][j] === '💣') {
               countBomb++
             }
             if(i > 0 && matriz[i-1][j] === '💣') {
               countBomb++
             }
+            //diagonais
+            if(i < 19 && j < 9 && matriz[i+1][j+1] === '💣') {
+              countBomb++
+            }
+            if(i > 0 && j < 9 && matriz[i-1][j+1] === '💣') {
+              countBomb++
+            }
+            if(i < 19 && j > 0 && matriz[i+1][j-1] === '💣') {
+              countBomb++
+            }
+            if(i > 0 && j > 0 && matriz[i-1][j-1] === '💣') {
+              countBomb++
+            }
             matriz[i][j] = countBomb.toString()
           }
+        }
+      }
+
+      for(let i=0; i<20; i++) {
+        for(let j=0; j<10; j++) {
+          let blockId : any = ''
+          if(i < 1) {
+            blockId = j.toString()
+          } else {
+            blockId = i.toString() + j.toString()
+          }
+          mine.children[blockId].innerHTML = `<p>${matriz[i][j]}</p>`
+          mine.children[blockId].children[0].style.filter = 'opacity(0)'
         }
       }
 
