@@ -30,18 +30,47 @@ function App() {
         }
       }
 
-      var matriz = []
-      for(let i=0; i<=mine.childElementCount-1; i++) {
-        if(mine.children[i].innerHTML != "<p>💣</p>") {
-          matriz.push("")
-        } else {
-          matriz.push("💣")
+      var matriz: any = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+
+      for(let i=0; i<20; i++) {
+        for(let j=0; j<10; j++) {
+          let blockId : any = ''
+          if(i < 1) {
+            blockId = j.toString()
+          } else {
+            blockId = i.toString() + j.toString()
+          }
+          if(mine.children[blockId].innerHTML === "<p>💣</p>") {
+            matriz[i][j] = '💣'
+          }
         }
       }
 
-      for(let i=0; i<matriz.length; i++) {
-        console.log(i)
+      for(let i=0; i<20; i++) {
+        for(let j=0; j<10; j++) {
+          var countBomb = 0
+          if(matriz[i][j] != '💣') {
+            //colunas
+            if(j < 9 && matriz[i][j+1] === '💣') {
+              countBomb++
+            }
+            if(j > 0 && matriz[i][j-1] === '💣') {
+              countBomb++
+            }
+            //linhas
+            if(i < 9 && matriz[i+1][j] === '💣') {
+              countBomb++
+            }
+            if(i > 0 && matriz[i-1][j] === '💣') {
+              countBomb++
+            }
+            matriz[i][j] = countBomb.toString()
+          }
+        }
       }
+
+      console.log(matriz)
+
     }
   }, [])
 
