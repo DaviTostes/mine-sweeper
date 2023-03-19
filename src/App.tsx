@@ -4,12 +4,17 @@ import "./App.css";
 function App() {
   const [lose, setLose] = useState(false)
 
-   const handleClickBomb = () => {
+  const handleClickBomb = () => {
     const mine = document.querySelector('.mine')
     for(let i=0; i<200; i++) {
       mine.children[i].children[0].style.filter = 'opacity(1)'
     }
     setLose(true)
+  }
+  
+  const handleCLickNotBomb = (e: any) => {
+    const mine = document.querySelector('.mine')
+    mine.children[e.target.id].children[0].style.filter = 'opacity(1)'
   }
 
   useEffect(() => {
@@ -34,8 +39,13 @@ function App() {
         }
       }
 
-      var matriz: any = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+      for(let i=0; i<mine.childElementCount; i++) {
+        if(mine.children[i].innerHTML != "<p>💣</p>") {
+          mine.children[i].addEventListener("click", handleCLickNotBomb)
+        }
+      }
 
+      var matriz: any = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
       for(let i=0; i<20; i++) {
         for(let j=0; j<10; j++) {
           let blockId : any = ''
@@ -81,7 +91,7 @@ function App() {
             if(i > 0 && j > 0 && matriz[i-1][j-1] === '💣') {
               countBomb++
             }
-            matriz[i][j] = countBomb.toString()
+            matriz[i][j] = countBomb
           }
         }
       }
@@ -98,8 +108,6 @@ function App() {
           mine.children[blockId].children[0].style.filter = 'opacity(0)'
         }
       }
-
-      console.log(matriz)
 
     }
   }, [])
